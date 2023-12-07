@@ -7,13 +7,20 @@ resource "aws_subnet" "main" {
   cidr_block          = each.value["cidr"]
   availability_zone   = each.value["az"]
 
-  tags {
+  tags = {
     Name = each.key
   }
 }
-
 #we need the cidr and az information so we are looping in to for_each = var.subnets so that we can get cidr and a info
 #to create subnet.
+
+resource "aws_route_table" "main" {
+  for_each  = var.subnets
+  vpc_id    = aws_vpc_id
+  tags = {
+    Name = each.key
+  }
+}
 
 variable "subnets" {}
 variable "vpc_id" {}
