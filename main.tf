@@ -26,6 +26,8 @@ resource "aws_route" "igw" {
 
 
 output  "subnets" {
-  value = "module.subnets"
+  value = module.subnets
 }
+
+
 
